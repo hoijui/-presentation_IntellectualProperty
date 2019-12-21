@@ -1,0 +1,95 @@
+#!/bin/sh
+# Converts a MarkDown formatted docment to HTML or optionally PDF.
+# Usage:
+#	compileMarkdown mySource.md
+#	compileMarkdown mySource.md html
+#	compileMarkdown mySource.md pdf
+
+set -e
+
+. "$HOME/bin/_shared"
+
+#file_pp_md=$1
+file_pp_md="talk.pp.md"
+
+base=`dirname $file_pp_md`/`basename $file_pp_md | sed -e 's/\.pp\.m.*//'`
+file_md="${base}.md"
+
+target_format=html
+if [ "$1" != "" ]
+then
+	target_format=$1
+fi
+
+table_of_contents="true"
+
+if [ "$2" = "-p" ]
+then
+	table_of_contents="false"
+fi
+
+if [ 1 -eq 0 ]
+# TODO
+then
+while ffff
+do
+	case "${_action}" in
+		-p)
+			table_of_contents="false"
+			;;
+		*)
+			echo "Unknonwn action: '${@}'"
+			exit 1
+	esac
+	shift
+done
+fi
+
+if [ "$target_format" != "html" -a "$target_format" != "pdf" ]
+then
+	echoerr ""
+	exit 1
+fi
+
+target="${base}.$target_format"
+
+echo "\nPP -- Pre-Processing (.pp.md -> .md) ..."
+pp "$file_pp_md" > "$file_md"
+
+# Basic Markdown:
+markdown_flavour=markdown
+# GitHub flavoured Markdown:
+#markdown_flavour=gfm
+
+common_options="--standalone"
+if [ "$table_of_contents" = "true" ]
+then
+	common_options="$common_options --toc"
+fi
+
+echo "\nMarkdown compiling into $target_format ..."
+if [ "$target_format" = "html" ]
+then
+	open_app="firefox"
+	pandoc \
+		$common_options \
+		-f $markdown_flavour \
+		-t $target_format \
+		--css "$HOME/res/pandoc.css" \
+		"$file_md" \
+		> "$target"
+elif [ "$target_format" = "pdf" ]
+then
+	open_app="evince"
+	pandoc \
+		$common_options \
+		-f $markdown_flavour \
+		--css "$HOME/res/pandoc.css" \
+		-o "$target" \
+		"$file_md"
+fi
+
+target_path=`readlink -f $target`
+echo "$target written; you might want to open it with:"
+echo "$open_app \"$target_path\" &"
+

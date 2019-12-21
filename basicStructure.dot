@@ -1,0 +1,149 @@
+digraph OshDinGuidelineDocWorkflows {
+
+  #label = "IP - basic hierarchy"
+  # No default tooltip (on the background)
+  tooltip = " ";
+  layout = "dot";
+
+  # Source Formats
+  node [shape=box color=blue];
+  part_IP [label=<Intellectual<br/> Property>];
+  node [shape=box color=lightblue];
+  part_copyright [label=<Copyright>
+      tooltip="applies to creative works"];
+  part_trademark [label=<Trademark>
+      tooltip="applies to what makes an entity identifyable"];
+  node [shape=box color=red];
+  part_patents [label=<Patents>
+      tooltip="applies to new ways of doing things"];
+  { rank=same; part_IP };
+  { rank=same; part_patents part_copyright part_trademark };
+
+  node [shape=box color=black];
+  part_hell [label=<money<br/> lawyers<br/> ...<br/> DARKNESS>
+      tooltip="applies to new ways of doing things"];
+
+  node [shape=oval color=green];
+  part_copyleft [label=<CopyLeft<br/> Licenses>];
+  { rank=same; part_copyleft part_hell };
+
+  node [shape=oval color=lightgreen];
+  part_licences_software [label=<Software>];
+  part_licences_general [label=<General>];
+  { rank=same; part_licences_software part_licences_general };
+
+  node [shape=oval color=green];
+  part_licences_free_software [label=<Free Software>];
+  part_licence_gpl [label=<*GPL> tooltip="GNU Public License(s)"];
+  part_licence_mpl [label=<MPL> tooltip="Mozilla Public License"];
+
+  node [shape=oval color=lightblue];
+  part_licences_open_source [label=<Open Source>];
+  part_licence_bsd [label=<BSD>];
+  part_licence_mit [label=<MIT>];
+  part_licence_apl [label=<APL> tooltip="Apache License"];
+
+  node [shape=oval color=lightgreen];
+  part_licence_PD [label=<PD and CC0> tooltip="Public Domain and Creative Commons 0"];
+  part_licence_CC_BY_SA [label=<CC-BY-SA> tooltip="Creative Commons Attribution Share-Alike"];
+  part_licence_CC_BY_NC [label=<CC-BY-NC> tooltip="Creative Commons Attribution Non-Commercial"];
+
+  { rank=same; part_licences_free_software part_licences_open_source };
+  { rank=same;
+  part_licence_gpl part_licence_mpl
+  part_licence_bsd part_licence_mit part_licence_apl
+  part_licence_PD part_licence_CC_BY_SA part_licence_CC_BY_NC
+  };
+
+  # Connections
+  #Fmt_HTML -> Tool_WK [color=Grey tooltip="Not recommended"];
+  part_IP -> part_patents;
+  part_IP -> part_copyright;
+  part_IP -> part_trademark;
+
+  part_copyright -> part_copyleft;
+  part_patents -> part_hell;
+
+  part_copyleft -> part_licences_software;
+  part_copyleft -> part_licences_general;
+
+  part_licences_software -> part_licences_free_software;
+  part_licences_software -> part_licences_open_source;
+
+  part_licences_free_software -> part_licence_gpl;
+  part_licences_free_software -> part_licence_mpl;
+
+  part_licences_open_source -> part_licence_bsd;
+  part_licences_open_source -> part_licence_mit;
+  part_licences_open_source -> part_licence_apl;
+
+  part_licences_general -> part_licence_PD;
+  part_licences_general -> part_licence_CC_BY_SA;
+  part_licences_general -> part_licence_CC_BY_NC;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
