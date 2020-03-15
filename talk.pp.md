@@ -58,3 +58,13 @@ Here we are fine! :-)
 * Originated from the _Free Software_ movement
 * Divided into _Free Software_ and _Open Source_
 * separate Licenses for Software and othre works
+
+### The four essential freedoms of Free Software
+
+1. unlimited use for any purpose
+
+1. right to study how the program works and understand it
+
+1. the right to share copies of the software
+
+1. the freedom to improve the program and to distribute the improvements to the program
